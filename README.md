@@ -9,7 +9,7 @@ A Claude Code plugin for the moments you type faster than you think.
 You type:
 
 ```
-/polish fix the thing where users cant login after reset
+/pithy fix the thing where users cant login after reset
 ```
 
 Pithy opens your editor with a polished version:
@@ -24,7 +24,7 @@ Via Claude Code's plugin system:
 
 ```
 /plugin marketplace add 082T/pithy
-/plugin install pithy@pithy
+/plugin install pithy@082T
 ```
 
 If you're installing from a local checkout, run `/plugin marketplace add <path>` instead of the first line.
@@ -41,10 +41,10 @@ If you're installing from a local checkout, run `/plugin marketplace add <path>`
 ## Usage
 
 ```
-/polish <your rough prompt>
+/pithy <your rough prompt>
 ```
 
-The plugin is called **pithy**. It currently ships one skill, `/polish`. Fully-qualified form `/pithy:polish <...>` also works if the short name ever collides with another skill.
+The plugin is called **pithy** and lives in the **082T** marketplace (hence `pithy@082T` when installing). It currently ships one skill, also named `pithy`, which is why you invoke it with `/pithy`. Fully-qualified form `/pithy:pithy <...>` also works if the short name ever collides with another skill.
 
 ### Flags
 
@@ -60,14 +60,14 @@ Flags may appear anywhere in the arguments. Use `--` to end flag parsing if your
 ### Examples
 
 ```
-/polish add retries to the fetch helper
+/pithy add retries to the fetch helper
 
-/polish --model haiku explain how the auth middleware works
+/pithy --model haiku explain how the auth middleware works
 
-/polish --model opus --thinking high design a reconnect strategy
+/pithy --model opus --thinking high design a reconnect strategy
        for the websocket client that preserves subscription state
 
-/polish --debug add dark mode support
+/pithy --debug add dark mode support
 ```
 
 ## Cancelling a reprompt
@@ -97,7 +97,7 @@ CLI flags override config file values.
 
 ### Project-local template
 
-To customize the reprompter template for a specific project (e.g., to encode house style, forbid certain patterns, require specific framing), create `.pithy/polish/reprompter.md` in the project root. Pithy will use it instead of the bundled default. The bundled template lives at [skills/polish/assets/reprompter.md](skills/polish/assets/reprompter.md) - copy and modify it as a starting point.
+To customize the reprompter template for a specific project (e.g., to encode house style, forbid certain patterns, require specific framing), create `.pithy/pithy/reprompter.md` in the project root. Pithy will use it instead of the bundled default. The bundled template lives at [skills/pithy/assets/reprompter.md](skills/pithy/assets/reprompter.md) - copy and modify it as a starting point.
 
 Use cases:
 - **Teams**: encode "always ask about test coverage" or "prefer composition over inheritance"
@@ -117,7 +117,7 @@ The plugin's slash command runs a small Node script that:
 ## Known limitations
 
 - **2-minute timeout.** Claude Code's slash command bash step is limited to 2 minutes. If your editor is open longer than that, the command silently times out.
-- **Raw args visible.** Claude Code includes your raw `/polish ...` text in the user turn alongside the polished output. In practice the model prioritizes the polished version, but your raw input is still in context.
+- **Raw args visible.** Claude Code includes your raw `/pithy ...` text in the user turn alongside the polished output. In practice the model prioritizes the polished version, but your raw input is still in context.
 - **Cursor / forks of VS Code.** Pithy's editor auto-detect targets `code --wait`. For Cursor, set `$env:EDITOR = "cursor --wait"` (Windows) or `export EDITOR="cursor --wait"` (macOS/Linux) before launching Claude Code.
 
 ## License

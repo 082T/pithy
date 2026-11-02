@@ -52,7 +52,7 @@ function loadConfig() {
 }
 
 function loadTemplate() {
-  const projectTemplate = join(process.cwd(), '.pithy', 'polish', 'reprompter.md');
+  const projectTemplate = join(process.cwd(), '.pithy', 'pithy', 'reprompter.md');
   if (existsSync(projectTemplate)) {
     templateSource = projectTemplate;
     return readFileSync(projectTemplate, 'utf8');
@@ -177,7 +177,7 @@ function splitCmd(s) {
 
 function printUsage(stream) {
   stream.write(
-`Usage: polish [options] <your prompt>
+`Usage: pithy [options] <your prompt>
 
 Options:
   --model <name>       Model for the polisher (haiku | sonnet | opus). Default: ${DEFAULTS.model}.
@@ -188,7 +188,7 @@ Options:
 Flags may appear anywhere; use "--" to end flag parsing if the prompt literally starts with "--".
 
 Config:   optional ~/.pithy/config.json with {"defaultModel": "...", "defaultThinking": "..."}
-Template: project override at ./.pithy/polish/reprompter.md takes precedence over the bundled default
+Template: project override at ./.pithy/pithy/reprompter.md takes precedence over the bundled default
 `);
 }
 
