@@ -9,7 +9,7 @@ A Claude Code plugin for the moments you type faster than you think.
 You type:
 
 ```
-/pithy fix the thing where users cant login after reset
+/polish fix the thing where users cant login after reset
 ```
 
 Pithy opens your editor with a polished version:
@@ -41,8 +41,10 @@ If you're installing from a local checkout, run `/plugin marketplace add <path>`
 ## Usage
 
 ```
-/pithy <your rough prompt>
+/polish <your rough prompt>
 ```
+
+The plugin is called **pithy**. It currently ships one skill, `/polish`. Fully-qualified form `/pithy:polish <...>` also works if the short name ever collides with another skill.
 
 ### Flags
 
@@ -58,14 +60,14 @@ Flags may appear anywhere in the arguments. Use `--` to end flag parsing if your
 ### Examples
 
 ```
-/pithy add retries to the fetch helper
+/polish add retries to the fetch helper
 
-/pithy --model haiku explain how the auth middleware works
+/polish --model haiku explain how the auth middleware works
 
-/pithy --model opus --thinking high design a reconnect strategy
+/polish --model opus --thinking high design a reconnect strategy
        for the websocket client that preserves subscription state
 
-/pithy --debug add dark mode support
+/polish --debug add dark mode support
 ```
 
 ## Cancelling a reprompt
@@ -115,7 +117,7 @@ The plugin's slash command runs a small Node script that:
 ## Known limitations
 
 - **2-minute timeout.** Claude Code's slash command bash step is limited to 2 minutes. If your editor is open longer than that, the command silently times out.
-- **Raw args visible.** Claude Code includes your raw `/pithy ...` text in the user turn alongside the polished output. In practice the model prioritizes the polished version, but your raw input is still in context.
+- **Raw args visible.** Claude Code includes your raw `/polish ...` text in the user turn alongside the polished output. In practice the model prioritizes the polished version, but your raw input is still in context.
 - **Cursor / forks of VS Code.** Pithy's editor auto-detect targets `code --wait`. For Cursor, set `$env:EDITOR = "cursor --wait"` (Windows) or `export EDITOR="cursor --wait"` (macOS/Linux) before launching Claude Code.
 
 ## License
