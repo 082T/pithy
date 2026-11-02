@@ -1,0 +1,18 @@
+{
+  "name": "pithy",
+  "version": "0.1.0",
+  "description": "Polish rough Claude Code prompts into precise ones. Review in your editor, then execute. Uses your Claude subscription - no API key.",
+  "author": {
+    "name": "082T"
+  },
+  "homepage": "https://github.com/082T/pithy",
+  "repository": "https://github.com/082T/pithy",
+  "license": "MIT",
+  "commands": {
+    "pithy": {
+      "source": "./commands/pithy.md",
+      "description": "Polish a rough prompt into a precise one, review in your editor, then execute",
+      "allowedTools": ["Bash(node:*)"]
+    }
+  }
+}

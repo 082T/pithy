@@ -1,0 +1,11 @@
+{
+  "name": "pithy",
+  "owner": { "name": "082T" },
+  "plugins": [
+    {
+      "name": "pithy",
+      "source": "./",
+      "description": "Polish rough Claude Code prompts into precise ones. Review in your editor, then execute. Uses your Claude subscription - no API key."
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "pithy",
+  "version": "0.1.0",
+  "description": "A Claude Code plugin that polishes rough prompts into precise ones. Review in your editor, then execute. Uses your Claude subscription - no API key.",
+  "type": "module",
+  "bin": {
+    "pithy": "bin/pithy.mjs"
+  },
+  "scripts": {
+    "pithy": "node ./bin/pithy.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": ["claude-code", "claude-code-plugin", "prompt", "prompt-engineering"],
+  "license": "MIT"
+}
