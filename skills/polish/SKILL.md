@@ -4,7 +4,7 @@ description: Polish rough Claude Code prompts into precise instructions. Opens t
 user-invocable: true
 argument-hint: [--model haiku|sonnet|opus] [--thinking low|medium|high|max] <your prompt>
 allowed-tools:
-  - Bash(node "${CLAUDE_PLUGIN_ROOT}/bin/pithy.mjs" *)
+  - Bash(node "${CLAUDE_PLUGIN_ROOT}/skills/polish/scripts/polish.mjs" *)
 ---
 
-!`node "${CLAUDE_PLUGIN_ROOT}/bin/pithy.mjs" $ARGUMENTS`
+!`node "${CLAUDE_PLUGIN_ROOT}/skills/polish/scripts/polish.mjs" $ARGUMENTS`

@@ -97,7 +97,7 @@ CLI flags override config file values.
 
 ### Project-local template
 
-To customize the reprompter template for a specific project (e.g., to encode house style, forbid certain patterns, require specific framing), create `.pithy/reprompter.md` in the project root. Pithy will use it instead of the bundled default. The bundled template lives at [templates/reprompter.md](templates/reprompter.md) - copy and modify it as a starting point.
+To customize the reprompter template for a specific project (e.g., to encode house style, forbid certain patterns, require specific framing), create `.pithy/polish/reprompter.md` in the project root. Pithy will use it instead of the bundled default. The bundled template lives at [skills/polish/assets/reprompter.md](skills/polish/assets/reprompter.md) - copy and modify it as a starting point.
 
 Use cases:
 - **Teams**: encode "always ask about test coverage" or "prefer composition over inheritance"
