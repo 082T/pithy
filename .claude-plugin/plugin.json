@@ -1,11 +1,18 @@
 {
   "name": "pithy",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Polish rough Claude Code prompts into precise ones. Review in your editor, then execute. Uses your Claude subscription - no API key.",
   "author": {
     "name": "082T"
   },
   "homepage": "https://github.com/082T/pithy",
   "repository": "https://github.com/082T/pithy",
-  "license": "MIT"
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "claude-code-plugin",
+    "prompt-engineering",
+    "prompt-optimization",
+    "reprompt"
+  ]
 }

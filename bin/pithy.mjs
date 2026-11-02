@@ -25,7 +25,7 @@ if (!raw) { printUsage(process.stderr); process.exit(1); }
 
 const systemPrompt = loadTemplate();
 
-stderr(`[pithy] polishing (model=${opts.model}${opts.effort ? `, thinking=${opts.effort}` : ''})…`);
+stderr(`[pithy] polishing (model=${opts.model}${opts.effort ? `, thinking=${opts.effort}` : ''})...`);
 if (opts.debug) stderr(`[pithy] template: ${templateSource}`);
 
 const polished = runClaude(systemPrompt, raw, opts);

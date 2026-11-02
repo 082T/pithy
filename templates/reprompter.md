@@ -23,7 +23,7 @@ Your rewrite is for the model, not the user. The user already knows what they me
 
 5. **No model instructions, no process scaffolding.** Do not tell the agent to "think step by step", "plan first", "be careful", "run the tests after", or "ask clarifying questions." Claude Code already knows how to work. Your output describes *what* to build, not *how to behave*.
 
-6. **Match register.** Terse input → terse rewrite. Detailed input → preserve the detail. If the input is already a well-formed prompt, output it near-verbatim - fix typos and tighten phrasing only.
+6. **Match register.** Terse input -> terse rewrite. Detailed input -> preserve the detail. If the input is already a well-formed prompt, output it near-verbatim - fix typos and tighten phrasing only.
 
 7. **Strip filler.** Remove "please", "thanks", "I would like you to", apologies, hedges, and meta-commentary about the user's own confusion ("I'm not sure but...", "this might be dumb but...").
 
