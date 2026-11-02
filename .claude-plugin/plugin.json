@@ -1,6 +1,6 @@
 {
   "name": "pithy",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Polish rough Claude Code prompts into precise ones. Review in your editor, then execute. Uses your Claude subscription - no API key.",
   "author": {
     "name": "082T"
