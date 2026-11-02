@@ -3,8 +3,17 @@
   "version": "0.4.1",
   "description": "A Claude Code plugin that polishes rough prompts into precise ones. Review in your editor, then execute. Uses your Claude subscription - no API key.",
   "type": "module",
+  "author": {
+    "name": "082T"
+  },
+  "homepage": "https://github.com/082T/pithy",
+  "repository": "https://github.com/082T/pithy",
+  "license": "MIT",
   "engines": {
     "node": ">=18"
+  },
+  "scripts": {
+    "polish": "node ./skills/polish/scripts/polish.mjs"
   },
   "keywords": [
     "claude-code",
@@ -12,6 +21,5 @@
     "prompt-engineering",
     "prompt-optimization",
     "reprompt"
-  ],
-  "license": "MIT"
+  ]
 }
