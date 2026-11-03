@@ -116,8 +116,9 @@ The plugin's slash command runs a small Node script that:
 
 ## Known limitations
 
-- **2-minute timeout.** Claude Code's slash command bash step is limited to 2 minutes. If your editor is open longer than that, the command silently times out.
+- **2-minute timeout.** Claude Code's slash-command bash step is capped at 2 minutes. If your editor is open longer, the pithy process dies silently but the editor tab stays open, now disconnected. Each new `/pithy` invocation purges stale `pithy-*` temp dirs older than an hour, so stale editor tabs end up pointing at missing files and are visibly dead. Each live editor tab also stamps the session's ISO timestamp and PID into its HTML comment header, so you can tell which one is current at a glance.
 - **Raw args visible.** Claude Code includes your raw `/pithy ...` text in the user turn alongside the polished output. In practice the model prioritizes the polished version, but your raw input is still in context.
+- **Shell-special characters in prompts.** Claude Code substitutes `$ARGUMENTS` into the skill's bash step as a raw string before the shell parses it. Pithy wraps the substitution in double quotes, so apostrophes (`'`), semicolons, and most punctuation pass through cleanly. Two residual edge cases remain: literal backticks inside your prompt will be interpreted as shell command substitution (so avoid them, or escape as `\``), and literal double quotes (`"`) in your prompt will break the outer quoting and may truncate the arg. Workaround: use single quotes `'...'` inside your prompt, or paste the problematic text into the editor after it opens.
 - **Cursor / forks of VS Code.** Pithy's editor auto-detect targets `code --wait`. For Cursor, set `$env:EDITOR = "cursor --wait"` (Windows) or `export EDITOR="cursor --wait"` (macOS/Linux) before launching Claude Code.
 
 ## License

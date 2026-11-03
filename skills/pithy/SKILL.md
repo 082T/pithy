@@ -7,4 +7,4 @@ allowed-tools:
   - Bash(node "${CLAUDE_PLUGIN_ROOT}/skills/pithy/scripts/pithy.mjs" *)
 ---
 
-!`node "${CLAUDE_PLUGIN_ROOT}/skills/pithy/scripts/pithy.mjs" $ARGUMENTS`
+!`node "${CLAUDE_PLUGIN_ROOT}/skills/pithy/scripts/pithy.mjs" "$ARGUMENTS"`

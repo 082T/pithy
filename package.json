@@ -1,6 +1,6 @@
 {
   "name": "pithy",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "A Claude Code plugin that polishes rough prompts into precise ones. Review in your editor, then execute. Uses your Claude subscription - no API key.",
   "type": "module",
   "author": {

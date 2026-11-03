@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 import { spawnSync } from 'node:child_process';
-import { writeFileSync, readFileSync, mkdtempSync, existsSync } from 'node:fs';
+import {
+  writeFileSync, readFileSync, mkdtempSync, existsSync,
+  readdirSync, rmSync, statSync,
+} from 'node:fs';
 import { tmpdir, homedir } from 'node:os';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -10,6 +13,8 @@ const skillRoot = join(scriptDir, '..');
 const IS_WINDOWS = process.platform === 'win32';
 
 const KNOWN_EFFORT = new Set(['low', 'medium', 'high', 'max']);
+const TEMP_DIR_PREFIX = 'pithy-';
+const TEMP_DIR_MAX_AGE_MS = 60 * 60 * 1000;
 
 const config = loadConfig();
 const DEFAULTS = {
@@ -19,7 +24,9 @@ const DEFAULTS = {
 
 let templateSource = 'bundled';
 
-const { opts, raw } = parseArgs(process.argv.slice(2));
+pruneOldTempDirs();
+
+const { opts, raw } = parseArgs(flattenArgv(process.argv.slice(2)));
 if (opts.help) { printUsage(process.stderr); process.exit(0); }
 if (!raw) { printUsage(process.stderr); process.exit(1); }
 
@@ -83,6 +90,17 @@ function runClaude(system, userText, opts) {
   return r.stdout.trim();
 }
 
+// The SKILL.md body wraps $ARGUMENTS in double quotes so apostrophes
+// in prompts survive shell parsing. The cost is that all args arrive
+// as a single whitespace-joined string instead of pre-tokenized argv.
+// Re-split on whitespace so flag parsing still works downstream.
+function flattenArgv(argv) {
+  if (argv.length === 1 && /\s/.test(argv[0])) {
+    return argv[0].split(/\s+/).filter(Boolean);
+  }
+  return argv;
+}
+
 function parseArgs(args) {
   const opts = { ...DEFAULTS, help: false, debug: false };
   const promptParts = [];
@@ -116,13 +134,14 @@ function parseArgs(args) {
 }
 
 function writeTempPrompt(original, polished) {
-  const dir = mkdtempSync(join(tmpdir(), 'pithy-'));
+  const dir = mkdtempSync(join(tmpdir(), TEMP_DIR_PREFIX));
   const file = join(dir, 'PROMPT.md');
   const originalSingleLine = original.replace(/\s+/g, ' ').slice(0, 300);
   const body = [
     '<!-- pithy: review and edit the prompt below, then save and close the editor to execute.',
     '     TO CANCEL: uncomment the #cancel line below (remove the HTML comment wrapper around it).',
     '     HTML comments like this one are stripped before sending. -->',
+    `<!-- session: ${new Date().toISOString()} (pid ${process.pid}) -->`,
     `<!-- original: ${originalSingleLine} -->`,
     '<!-- #cancel -->',
     '',
@@ -131,6 +150,27 @@ function writeTempPrompt(original, polished) {
   ].join('\n');
   writeFileSync(file, body);
   return file;
+}
+
+// Claude Code's slash-command bash step has a 2-minute hard timeout.
+// When it fires, our process dies but the spawned editor keeps running,
+// leaving the user with a stale PROMPT.md they can edit to no effect.
+// On the next invocation, delete those abandoned temp dirs so stale
+// editor tabs point at missing files and are visibly dead.
+function pruneOldTempDirs() {
+  try {
+    const tempRoot = tmpdir();
+    const now = Date.now();
+    for (const entry of readdirSync(tempRoot, { withFileTypes: true })) {
+      if (!entry.isDirectory() || !entry.name.startsWith(TEMP_DIR_PREFIX)) continue;
+      const dirPath = join(tempRoot, entry.name);
+      try {
+        if (now - statSync(dirPath).mtimeMs > TEMP_DIR_MAX_AGE_MS) {
+          rmSync(dirPath, { recursive: true, force: true });
+        }
+      } catch { /* a single orphan we can't stat or delete isn't fatal */ }
+    }
+  } catch { /* cleanup is best-effort; never block the main flow */ }
 }
 
 function openEditor(file) {
